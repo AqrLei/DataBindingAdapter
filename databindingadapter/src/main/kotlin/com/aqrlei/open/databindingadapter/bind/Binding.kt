@@ -20,14 +20,13 @@ fun <T> RecyclerView.setAdapter(
     itemBinding: ItemBinding<T>,
     items: List<T>,
     layoutManager: RecyclerView.LayoutManager?,
-    itemAnimator: RecyclerView.ItemAnimator? = null
+    itemAnimator: RecyclerView.ItemAnimator?
 ) {
     val oldAdapter = this.adapter as? DataBindingRecyclerAdapter<T>
     val adapter = oldAdapter ?: DataBindingRecyclerAdapter()
     adapter.setItemBind(itemBinding)
     adapter.setItems(items)
-
-    this.itemAnimator = itemAnimator?:this.itemAnimator
+    this.itemAnimator = itemAnimator ?: this.itemAnimator
     this.layoutManager = layoutManager ?: LinearLayoutManager(this.context)
     if (adapter != oldAdapter) {
         this.adapter = adapter
