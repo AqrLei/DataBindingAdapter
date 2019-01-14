@@ -39,6 +39,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':bindingadapter')
     implementation deps.kotlin.stdlib
+    implementation deps.material
     implementation deps.androidx.appcompat
     implementation deps.androidx.constraint
     testImplementation deps.test.junit
