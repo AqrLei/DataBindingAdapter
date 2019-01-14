@@ -1,9 +1,9 @@
-package com.aqrlei.open.databindingadapter.bind
+package com.aqrlei.open.bindingadapter.bind
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.aqrlei.open.databindingadapter.adapter.DataBindingRecyclerAdapter
+import com.aqrlei.open.bindingadapter.adapter.DataBindingRecyclerAdapter
 
 /**
  * @author aqrlei on 2019/1/11

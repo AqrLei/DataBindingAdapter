@@ -1,4 +1,4 @@
-package com.aqrlei.open.databindingadapter.adapter
+package com.aqrlei.open.bindingadapter.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +8,7 @@ import androidx.databinding.ObservableList
 import androidx.databinding.OnRebindCallback
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
-import com.aqrlei.open.databindingadapter.bind.ItemBinding
+import com.aqrlei.open.bindingadapter.bind.ItemBinding
 import java.lang.ref.WeakReference
 
 /**
