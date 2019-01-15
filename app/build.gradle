@@ -37,7 +37,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(':databindingadapter')
+
     implementation deps.kotlin.stdlib
     implementation deps.androidx.appcompat
     implementation deps.androidx.constraint

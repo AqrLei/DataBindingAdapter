@@ -14,7 +14,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
-        versionName "1.0"
+        versionName "0.0.1"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -40,8 +40,8 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    api deps.androidx.appcompat
-    api deps.material
+    implementation deps.androidx.appcompat
+    implementation deps.material
     implementation deps.kotlin.stdlib
     testImplementation deps.test.junit
     androidTestImplementation deps.test.runner
