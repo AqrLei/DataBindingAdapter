@@ -6,12 +6,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableArrayList
 import com.aqrlei.open.bindingadapter.bind.ItemBinding
+import com.aqrlei.open.bindingadapter.collections.MultiTypeObservableList
 import com.aqrlei.open.databindingadapter.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     val items = ObservableArrayList<String>()
     val mutItems = ObservableArrayList<Any>()
+    val mutListItems = MultiTypeObservableList<Any>()
+        .insertItem("Header")
+        .insertList(mutItems)
+        .insertItem("Footer")
     var position: Int = -1
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         val mutItemBinding = ItemBinding.create<Any>().add(BR.item, R.layout.list_item_binding, String::class.java)
             .add(BR.item, R.layout.list_item_mut, BindingBean::class.java)
         binding.itemBinding = mutItemBinding
-        binding.items = mutItems
+        binding.items = mutListItems
 
     }
 

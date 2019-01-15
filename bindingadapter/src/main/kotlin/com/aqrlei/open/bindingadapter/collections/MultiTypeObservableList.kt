@@ -151,7 +151,6 @@ class MultiTypeObservableList<T> : AbstractList<T>(), ObservableList<T> {
                     return
                 }
                 tempSize += list.size
-
             }
         }
 
