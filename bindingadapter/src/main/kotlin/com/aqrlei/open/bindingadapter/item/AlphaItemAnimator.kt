@@ -1,4 +1,4 @@
-package com.aqrlei.open.databindingadapter.item
+package com.aqrlei.open.bindingadapter.item
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter

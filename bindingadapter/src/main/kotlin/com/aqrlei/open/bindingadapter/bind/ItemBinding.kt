@@ -1,4 +1,4 @@
-package com.aqrlei.open.databindingadapter.bind
+package com.aqrlei.open.bindingadapter.bind
 
 import android.util.SparseArray
 import androidx.databinding.ViewDataBinding

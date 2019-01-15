@@ -1,9 +1,10 @@
-package com.aqrlei.open.databindingadapter.bind
+package com.aqrlei.open.bindingadapter.bind
 
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.aqrlei.open.databindingadapter.adapter.DataBindingRecyclerAdapter
+import com.aqrlei.open.bindingadapter.adapter.DataBindingRecyclerAdapter
 
 /**
  * @author aqrlei on 2019/1/11
@@ -26,7 +27,7 @@ fun <T> RecyclerView.setAdapter(
     val adapter = oldAdapter ?: DataBindingRecyclerAdapter()
     adapter.setItemBind(itemBinding)
     adapter.setItems(items)
-    this.itemAnimator = itemAnimator ?: this.itemAnimator
+    this.itemAnimator = itemAnimator
     this.layoutManager = layoutManager ?: LinearLayoutManager(this.context)
     if (adapter != oldAdapter) {
         this.adapter = adapter

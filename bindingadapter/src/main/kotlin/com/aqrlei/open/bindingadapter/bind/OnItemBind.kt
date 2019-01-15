@@ -1,4 +1,4 @@
-package com.aqrlei.open.databindingadapter.bind
+package com.aqrlei.open.bindingadapter.bind
 
 /**
  * @author aqrlei on 2019/1/11
