@@ -47,6 +47,8 @@ versions.okhttp = "3.11.0"
 
 versions.livedataadapter = "1.1.2"
 
+versions.paging = "2.0.0"
+
 
 def deps = [:]
 deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
@@ -55,6 +57,7 @@ deps.bintray_plugin = "com.jfrog.bintray.gradle:gradle-bintray-plugin:$versions.
 deps.dokka_plugin = "org.jetbrains.dokka:dokka-android-gradle-plugin:$versions.dokka_plugin"
 deps.material = "com.google.android.material:material:$versions.material"
 deps.livedataAdapter = "com.github.leonardoxh:retrofit2-livedata-adapter:$versions.livedataadapter"
+deps.paging= "androidx.paging:paging-runtime:$versions.paging"
 def test = [:]
 test.junit = "junit:junit:$versions.junit"
 test.runner = "androidx.test:runner:$versions.test_runner"
