@@ -40,6 +40,7 @@ dependencies {
 
     implementation project(':bindingadapter')
     implementation deps.kotlin.stdlib
+    implementation deps.paging
     implementation deps.material
     implementation deps.androidx.appcompat
     implementation deps.androidx.constraint

@@ -11,6 +11,8 @@ import com.aqrlei.open.databindingadapter.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
+
+
     val items = ObservableArrayList<String>()
     val mutItems = ObservableArrayList<Any>()
     val mutListItems = MultiTypeObservableList<Any>()
@@ -39,4 +41,6 @@ class MainActivity : AppCompatActivity() {
         }
         //  items.add("test")
     }
+
+    
 }
