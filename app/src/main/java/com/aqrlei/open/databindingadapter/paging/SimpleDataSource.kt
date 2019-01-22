@@ -6,12 +6,12 @@ import com.aqrlei.open.databindingadapter.BindingBean
 /**
  * @author aqrlei on 2019/1/22
  */
-class  SimpleDataSource:PositionalDataSource<BindingBean>(){
+class SimpleDataSource(private val loadAction: (Int, Int) -> List<BindingBean>) : PositionalDataSource<BindingBean>() {
     override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<BindingBean>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        callback.onResult(loadAction.invoke(0, 10), 0, 10)
     }
 
     override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<BindingBean>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        callback.onResult(loadAction.invoke(params.startPosition, 10))
     }
 }
