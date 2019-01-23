@@ -5,17 +5,12 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableArrayList
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
-import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.DiffUtil
 import com.aqrlei.open.bindingadapter.bind.ItemBinding
 import com.aqrlei.open.bindingadapter.collections.MultiTypeObservableList
 import com.aqrlei.open.databindingadapter.databinding.ActivityMainBinding
-import com.aqrlei.open.databindingadapter.paging.SimpleDataSourceFactory
-import com.aqrlei.open.databindingadapter.paging.SimplePagedListAdapter
 
 class MainActivity : AppCompatActivity() {
 
@@ -39,9 +34,10 @@ class MainActivity : AppCompatActivity() {
             .add(BR.item, R.layout.list_item_mut, BindingBean::class.java)
         val pagingItemBinding = ItemBinding.create<BindingBean>().set(BR.item, R.layout.list_item_mut)
 
-        binding.itemBinding = pagingItemBinding
+        binding.itemBinding = mutItemBinding
         binding.items = mutListItems
         binding.activity = this
+
         binding.config = PagedList.Config.Builder()
             .setPageSize(10)
             .setEnablePlaceholders(false)
@@ -52,10 +48,8 @@ class MainActivity : AppCompatActivity() {
             override fun areContentsTheSame(oldItem: BindingBean, newItem: BindingBean): Boolean {
                 return oldItem.id == newItem.id
             }
-
             override fun areItemsTheSame(oldItem: BindingBean, newItem: BindingBean): Boolean {
                 return oldItem == newItem
-
             }
         }
         binding.usePaging = true
@@ -63,17 +57,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     val loadDataAction = { startPosition: Int, loadSize: Int ->
-        loadData(startPosition)
+        loadData(startPosition, loadSize)
     }
 
-    private fun loadData(startPosition: Int): List<BindingBean> {
-        val list = ArrayList<BindingBean>()
-        for (i in 0 until 20) {
-            list.add(BindingBean().apply {
-                id = startPosition + i
-                name = "$id 测试"
-                content = "测试：$i"
-            })
+    private fun loadData(startPosition: Int, loadSize: Int): List<Any> {
+        val list = ArrayList<Any>()
+        for (i in 0 until loadSize) {
+            list.add(
+                if (i % 2 == 0)
+                    BindingBean().apply {
+                        id = startPosition + i
+                        name = "$id 测试"
+                        content = "测试：$i"
+                    } else "start: $startPosition, offset: $i")
         }
         return list
     }
