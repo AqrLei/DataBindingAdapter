@@ -2,6 +2,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
 >
     <data>
+        <variable name="activity" type="com.aqrlei.open.databindingadapter.MainActivity"/>
+        <variable name="diffCallback" type="androidx.recyclerview.widget.DiffUtil.ItemCallback"/>
+        <variable name="config" type="androidx.paging.PagedList.Config"/>
+        <variable name="usePaging" type="Boolean"/>
         <variable name="itemBinding" type="com.aqrlei.open.bindingadapter.bind.ItemBinding"/>
         <variable name="items" type="androidx.databinding.ObservableList"/>
 
@@ -14,12 +18,16 @@
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/bindingRv"
                 android:layout_width="match_parent"
-                android:itemBinding="@{itemBinding}"
-                android:items="@{items}"
                 android:visibility="gone"
                 android:layout_height="wrap_content"/>
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/pagingRv"
+                android:itemBinding="@{itemBinding}"
+                android:pagedConfig="@{config}"
+                android:onLoadData="@{activity.loadDataAction}"
+                android:diffCallback="@{diffCallback}"
+                android:usePaging="@{usePaging}"
+                android:onPageRefresh="@{activity.refreshEvent}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         <com.google.android.material.floatingactionbutton.FloatingActionButton

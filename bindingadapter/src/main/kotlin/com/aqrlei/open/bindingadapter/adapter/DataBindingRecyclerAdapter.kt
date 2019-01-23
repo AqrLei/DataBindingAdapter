@@ -1,7 +1,6 @@
 package com.aqrlei.open.bindingadapter.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableList
@@ -14,7 +13,7 @@ import java.lang.ref.WeakReference
 /**
  * @author aqrlei on 2019/1/10
  */
-class DataBindingRecyclerAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class DataBindingRecyclerAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>(), DataBindingAdapter<T> {
 
     companion object {
         private val DATA_INVALIDATION = Any()
@@ -97,7 +96,7 @@ class DataBindingRecyclerAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHold
         return items?.get(position)
     }
 
-    fun setItemBind(itemBinding: ItemBinding<T>) {
+    override fun setItemBind(itemBinding: ItemBinding<T>) {
         this.itemBinding = itemBinding
     }
 
@@ -109,7 +108,6 @@ class DataBindingRecyclerAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHold
         return position.toLong()
     }
 
-    class DataBindingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     private class WeakReferenceOnListChangedCallback<T> internal constructor(adapter: DataBindingRecyclerAdapter<T>) :
         ObservableList.OnListChangedCallback<ObservableList<T>>() {
