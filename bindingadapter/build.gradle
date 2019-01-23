@@ -43,6 +43,7 @@ dependencies {
     implementation deps.androidx.appcompat
     implementation deps.material
     implementation deps.paging
+    implementation deps.kotlin.coroutines
     implementation deps.kotlin.stdlib
     testImplementation deps.test.junit
     androidTestImplementation deps.test.runner

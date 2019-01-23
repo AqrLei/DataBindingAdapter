@@ -6,7 +6,7 @@ import com.aqrlei.open.databindingadapter.BindingBean
 /**
  * @author aqrlei on 2019/1/22
  */
-class SimpleDataSourceFactory(private val loadAction: (Int, Int) -> List<BindingBean?>) :
+class SimpleDataSourceFactory(private val loadAction: (Int) -> List<BindingBean>) :
     DataSource.Factory<Int, BindingBean>() {
     override fun create(): DataSource<Int, BindingBean> {
         return SimpleDataSource(loadAction)

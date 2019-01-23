@@ -6,12 +6,14 @@ import com.aqrlei.open.databindingadapter.BindingBean
 /**
  * @author aqrlei on 2019/1/22
  */
-class SimpleDataSource(private val loadAction: (Int, Int) -> List<BindingBean?>) : PositionalDataSource<BindingBean>() {
+class SimpleDataSource(private val loadAction: (Int) -> List<BindingBean>) : PositionalDataSource<BindingBean>() {
     override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<BindingBean>) {
-        callback.onResult(loadAction.invoke(0, 10), 1, 11)
+        val initData = loadAction.invoke(0)
+        val totalCount = initData.size
+        callback.onResult(loadAction.invoke(0), 0, totalCount)
     }
 
     override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<BindingBean>) {
-        callback.onResult(loadAction.invoke(params.startPosition, 10))
+        callback.onResult(loadAction.invoke(params.startPosition))
     }
 }

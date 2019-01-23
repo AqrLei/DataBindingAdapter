@@ -17,6 +17,10 @@ import com.aqrlei.open.databindingadapter.databinding.ActivityMainBinding
 import com.aqrlei.open.databindingadapter.paging.SimpleDataSourceFactory
 import com.aqrlei.open.databindingadapter.paging.SimplePagedListAdapter
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,17 +31,23 @@ class MainActivity : AppCompatActivity() {
         .insertItem("Header")
         .insertList(mutItems)
         .insertItem("Footer")
-    var position: Int = -1
+    var loadSize = 10
     private lateinit var binding: ActivityMainBinding
 
     private val respData: LiveData<PagedList<BindingBean>>
         get() = LivePagedListBuilder<Int, BindingBean>(
-            SimpleDataSourceFactory { startPos, size ->
-                loadData(startPos, size)
+            SimpleDataSourceFactory { startPos ->
+                GlobalScope.launch {
+
+
+                }
+                loadData(startPos)
+
+
             }, PagedList.Config.Builder()
-                .setPageSize(10)
-                .setEnablePlaceholders(false)
-                .setInitialLoadSizeHint(10)
+                .setPageSize(loadSize)
+                .setEnablePlaceholders(true)
+                .setInitialLoadSizeHint(loadSize)
                 .build()
         ).build()
     private val simplePagingAdapter = SimplePagedListAdapter(object : DiffUtil.ItemCallback<BindingBean>() {
@@ -71,7 +81,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun loadData(startPosition: Int, loadSize: Int): List<BindingBean?> {
+    private fun loadData(startPosition: Int): List<BindingBean> {
         val list = ArrayList<BindingBean>()
         for (i in 0 until loadSize) {
             list.add(BindingBean().apply {
