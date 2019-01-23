@@ -5,6 +5,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableArrayList
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
@@ -29,6 +30,16 @@ class MainActivity : AppCompatActivity() {
     var position: Int = -1
     private lateinit var binding: ActivityMainBinding
 
+    private val respData: LiveData<PagedList<BindingBean>>
+        get() = LivePagedListBuilder<Int, BindingBean>(
+            SimpleDataSourceFactory { startPos, size ->
+                loadData(startPos, size)
+            }, PagedList.Config.Builder()
+                .setPageSize(10)
+                .setEnablePlaceholders(false)
+                .setInitialLoadSizeHint(10)
+                .build()
+        ).build()
     private val simplePagingAdapter = SimplePagedListAdapter(object : DiffUtil.ItemCallback<BindingBean>() {
         override fun areContentsTheSame(oldItem: BindingBean, newItem: BindingBean): Boolean {
             return oldItem.id == newItem.id
@@ -50,15 +61,6 @@ class MainActivity : AppCompatActivity() {
         binding.itemBinding = mutItemBinding
         binding.items = mutListItems
 
-        val respData = LivePagedListBuilder<Int, BindingBean>(
-            SimpleDataSourceFactory { startPos, size ->
-                loadData(startPos, size)
-            }, PagedList.Config.Builder()
-                .setPageSize(10)
-                .setEnablePlaceholders(false)
-                .setInitialLoadSizeHint(10)
-                .build()
-        ).build()
         respData.observe(this, Observer<PagedList<BindingBean>> {
             simplePagingAdapter.submitList(it)
         })
@@ -69,10 +71,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun loadData(startPosition: Int, loadSize: Int): List<BindingBean> {
-        if (startPosition > 100) {
-            return emptyList()
-        }
+    private fun loadData(startPosition: Int, loadSize: Int): List<BindingBean?> {
         val list = ArrayList<BindingBean>()
         for (i in 0 until loadSize) {
             list.add(BindingBean().apply {
@@ -85,11 +84,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onFabClick(view: View) {
-        if (++position % 2 == 0) {
+        simplePagingAdapter.submitList(null)
+        respData.observe(this, Observer<PagedList<BindingBean>> {
+            simplePagingAdapter.submitList(it)
+        })
+        /*if (++position % 2 == 0) {
             mutItems.add(BindingBean(0, "name", "content", "des"))
         } else {
             mutItems.add("string")
-        }
+        }*/
         //  items.add("test")
     }
 
