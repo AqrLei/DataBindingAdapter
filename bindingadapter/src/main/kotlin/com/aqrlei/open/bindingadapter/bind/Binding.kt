@@ -34,7 +34,7 @@ fun <T> RecyclerView.setAdapter(
     items: List<T>?,
     layoutManager: RecyclerView.LayoutManager?,
     itemAnimator: RecyclerView.ItemAnimator?,
-    usePaging: Boolean = false,
+    usePaging: Boolean? = false,
     pagedConfig: PagedList.Config?,
     loadDataAction: ((Int, Int) -> List<T>)?,
     diffCallback: DiffUtil.ItemCallback<T>?,
@@ -43,7 +43,8 @@ fun <T> RecyclerView.setAdapter(
     currentPage: Int = 0
 
 ) {
-    if (usePaging && pagedConfig != null && loadDataAction != null && (diffCallback != null || asyncDifferConfig != null)) {
+    if (usePaging == true && pagedConfig != null && loadDataAction != null && (diffCallback != null || asyncDifferConfig != null)) {
+        @Suppress("UNCHECKED_CAST")
         val oldAdapter = (this.adapter as? DataBindingPagingAdapter<T>)
         val adapter = oldAdapter ?: let {
             if (diffCallback != null) {
@@ -52,9 +53,11 @@ fun <T> RecyclerView.setAdapter(
                 DataBindingPagingAdapter(asyncDifferConfig!!, pagedConfig, loadDataAction)
             }
         }
-        adapter.setItemBind(itemBinding)
-        adapter.setDataSourceType(dataSourceType)
-        adapter.setCurrentPageNum(currentPage)
+        with(adapter) {
+            setItemBind(itemBinding)
+            setDataSourceType(dataSourceType)
+            setCurrentPageNum(currentPage)
+        }
         if (adapter != oldAdapter) {
             this.adapter = adapter
         }
@@ -62,10 +65,13 @@ fun <T> RecyclerView.setAdapter(
             adapter.observeToLoadMore(this)
         }
     } else {
+        @Suppress("UNCHECKED_CAST")
         val oldAdapter = this.adapter as? DataBindingRecyclerAdapter<T>
         val adapter = oldAdapter ?: DataBindingRecyclerAdapter()
-        adapter.setItemBind(itemBinding)
-        adapter.setItems(items ?: emptyList())
+        with(adapter) {
+            setItemBind(itemBinding)
+            setItems(items ?: emptyList())
+        }
         if (adapter != oldAdapter) {
             this.adapter = adapter
         }

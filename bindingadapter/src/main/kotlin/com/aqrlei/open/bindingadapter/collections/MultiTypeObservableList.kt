@@ -65,7 +65,6 @@ class MultiTypeObservableList<T> : AbstractList<T>(), ObservableList<T> {
     }
 
     fun removeAll() {
-        val tempSize = size
         if (size == 0) return
         for (list in lists) {
             if (list is ObservableList) {
