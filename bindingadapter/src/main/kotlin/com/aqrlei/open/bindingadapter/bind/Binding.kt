@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aqrlei.open.bindingadapter.adapter.DataBindingPagingAdapter
 import com.aqrlei.open.bindingadapter.adapter.DataBindingRecyclerAdapter
+import com.aqrlei.open.bindingadapter.adapter.datasource.SimpleDataSourceFactory
 
 /**
  * @author aqrlei on 2019/1/11
@@ -24,6 +25,8 @@ import com.aqrlei.open.bindingadapter.adapter.DataBindingRecyclerAdapter
     "android:onLoadData",
     "android:diffCallback",
     "android:asyncDifferConfig",
+    "android:pagingDataSourceType",
+    "android:currentPage",
     requireAll = false
 )
 fun <T> RecyclerView.setAdapter(
@@ -35,7 +38,9 @@ fun <T> RecyclerView.setAdapter(
     pagedConfig: PagedList.Config?,
     loadDataAction: ((Int, Int) -> List<T>)?,
     diffCallback: DiffUtil.ItemCallback<T>?,
-    asyncDifferConfig: AsyncDifferConfig<T>?
+    asyncDifferConfig: AsyncDifferConfig<T>?,
+    dataSourceType: SimpleDataSourceFactory.DataSourceType?,
+    currentPage: Int = 0
 
 ) {
     if (usePaging && pagedConfig != null && loadDataAction != null && (diffCallback != null || asyncDifferConfig != null)) {
@@ -48,6 +53,8 @@ fun <T> RecyclerView.setAdapter(
             }
         }
         adapter.setItemBind(itemBinding)
+        adapter.setDataSourceType(dataSourceType)
+        adapter.setCurrentPageNum(currentPage)
         if (adapter != oldAdapter) {
             this.adapter = adapter
         }

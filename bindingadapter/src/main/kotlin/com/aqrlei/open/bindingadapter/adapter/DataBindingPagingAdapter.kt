@@ -25,13 +25,15 @@ class DataBindingPagingAdapter<T> : PagedListAdapter<T, RecyclerView.ViewHolder>
 
     private val pagedList: LiveData<PagedList<T>>
         get() = LivePagedListBuilder<Int, T>(
-            SimpleDataSourceFactory(loadDataAction),
+            SimpleDataSourceFactory(loadDataAction,dataSourceType,page),
             config
         ).build()
 
     private lateinit var itemBinding: ItemBinding<T>
     private val config: PagedList.Config
+    private var page:Int = 0
     private val loadDataAction: (Int, Int) -> List<T>
+    private var dataSourceType: SimpleDataSourceFactory.DataSourceType? = null
     private var containerView: RecyclerView? = null
 
     constructor(
@@ -63,6 +65,14 @@ class DataBindingPagingAdapter<T> : PagedListAdapter<T, RecyclerView.ViewHolder>
 
     override fun setItemBind(itemBinding: ItemBinding<T>) {
         this.itemBinding = itemBinding
+    }
+
+    fun setDataSourceType(type: SimpleDataSourceFactory.DataSourceType?) {
+        dataSourceType = type
+    }
+
+    fun setCurrentPageNum(page:Int){
+        this.page = page
     }
 
     fun observeToLoadMore(lifecycleOwner: LifecycleOwner) {

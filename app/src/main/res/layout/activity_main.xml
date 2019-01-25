@@ -28,6 +28,8 @@
                 android:diffCallback="@{diffCallback}"
                 android:usePaging="@{usePaging}"
                 android:onPageRefresh="@{activity.refreshEvent}"
+                android:pagingDataSourceType="@{activity.dataSourceType}"
+                android:currentPage="@{activity.currentPage}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         <com.google.android.material.floatingactionbutton.FloatingActionButton
