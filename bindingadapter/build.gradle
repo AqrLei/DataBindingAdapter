@@ -13,8 +13,8 @@ android {
     defaultConfig {
         minSdkVersion buildVersion.min
         targetSdkVersion buildVersion.target
-        versionCode 2
-        versionName "0.0.2"
+        versionCode 3
+        versionName "0.0.3"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -71,7 +71,7 @@ def libName = "databindingadapter"
 
 group = "com.aqrlei.opensource"
 
-version = "0.0.2"
+version = "0.0.3"
 
 install {
     repositories.mavenInstaller {
