@@ -81,8 +81,8 @@ fun <T> RecyclerView.setAdapter(
 }
 
 @BindingAdapter("android:onPageRefresh")
-fun RecyclerView.onPagingRefresh(refreshEvent: Any?) {
-    if (refreshEvent != null) {
+fun RecyclerView.onPagingRefresh(refreshEvent: Boolean?) {
+    if (refreshEvent == true) {
         (this.adapter as? DataBindingPagingAdapter<*>)?.let { adapter ->
             (this.context as? LifecycleOwner)?.let { lifecycleOwner ->
                 adapter.refresh(lifecycleOwner)

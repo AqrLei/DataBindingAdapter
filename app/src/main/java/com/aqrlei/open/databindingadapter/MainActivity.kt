@@ -6,6 +6,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableArrayList
+import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.DiffUtil
@@ -23,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         .insertItem("Header")
         .insertList(mutItems)
         .insertItem("Footer")
-    val refreshEvent = MutableLiveData<Any>()
+    val refreshEvent = ObservableBoolean()
     private lateinit var binding: ActivityMainBinding
     val dataSourceType = SimpleDataSourceFactory.DataSourceType.PAGE
     val currentPage = 5
@@ -80,7 +81,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onFabClick(view: View) {
-        refreshEvent.value = Any()
+        refreshEvent.set(true)
         /*  simplePagingAdapter.submitList(null)
           respData.observe(this, Observer<PagedList<BindingBean>> {
               simplePagingAdapter.submitList(it)
